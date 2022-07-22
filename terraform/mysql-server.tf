@@ -8,7 +8,7 @@ terraform {
 
 provider "aws" {
   region    = "us-west-2"
-  shared_credentials_files = ["../.aws/credentials.txt"]
+  shared_credentials_files = [".aws/credentials.txt"]
   profile	= "624301448388"
 }
 
