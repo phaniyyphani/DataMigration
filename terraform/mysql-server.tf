@@ -19,9 +19,10 @@ resource "aws_vpc" "tst-vpc" {
 resource "aws_subnet" "tat-subnt" {
   vpc_id     = aws_vpc.tst-vpc.id
   cidr_block = "10.0.0.0/25"
-
+  availability_zone = "us-west-2a"
   tags = {
-    Name = "aws-subnt-tst"
+      Name = "${var.environmentName}-aws-subnt-tst"
+
   }
 }
 
