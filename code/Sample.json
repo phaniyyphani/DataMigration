@@ -1,0 +1,11 @@
+{
+	"SHost": "Value1",
+	"THost": "Value2",
+	"TableDef": [{
+		"STable": "Table1",
+		"TTable": "TableA"
+	}, {
+		"STable": "Table2",
+		"TTable": "TableB"
+	}]
+}
