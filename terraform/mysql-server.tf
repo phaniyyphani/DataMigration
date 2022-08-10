@@ -7,9 +7,9 @@ terraform {
 }
 
 provider "aws" {
-  region    = "us-west-2"
+  region    = "us-east-1"
   shared_credentials_files = [".aws/credentials.txt"]
-  profile	= "624301448388"
+  profile	= "phaniaccesskeys"
 }
 
 resource "aws_vpc" "tst-vpc" {
@@ -19,7 +19,7 @@ resource "aws_vpc" "tst-vpc" {
 resource "aws_subnet" "tat-subnt" {
   vpc_id     = aws_vpc.tst-vpc.id
   cidr_block = "10.0.0.0/25"
-  availability_zone = "us-west-2a"
+  availability_zone = "us-east-1a"
   tags = {
       Name = "${var.environmentName}-aws-subnt-tst"
 
@@ -66,6 +66,14 @@ resource "aws_security_group" "allow_tls" {
     cidr_blocks      = ["0.0.0.0/0"]
   }
 
+  ingress {
+    description      = "TCP for MYSQL"
+    from_port        = 3306
+    to_port          = 3306
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+  }
+
   egress {
     from_port        = 0
     to_port          = 0
@@ -80,7 +88,7 @@ resource "aws_security_group" "allow_tls" {
 
 
 resource "aws_instance" "web" {
-  ami           = "ami-098e42ae54c764c35"
+  ami           = "ami-090fa75af13c156b4"
   instance_type = "t2.micro"
   vpc_security_group_ids = [aws_security_group.allow_tls.id]
   subnet_id              = aws_subnet.tat-subnt.id
@@ -90,6 +98,6 @@ resource "aws_instance" "web" {
   iam_instance_profile = "ec2-read-s3"
 
   tags = {
-    Name = "HelloWorld"
+    Name = "For DataMigration with MySQL"
   }
 }
